@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boys Gaming Zone - Epic Games Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0,0,0,0.9);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #4ecdc4;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><rect fill="%23003366" width="1000" height="300"/><circle fill="%23ff6b6b" opacity="0.3" cx="200" cy="100" r="80"/><circle fill="%234ecdc4" opacity="0.3" cx="800" cy="150" r="60"/><polygon fill="%23ffd93d" opacity="0.4" points="500,50 550,120 450,120"/></svg>') center/cover;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255,107,107,0.4);
+        }
+
+        /* Games Section */
+        .games-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .game-card:hover::before {
+            left: 100%;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .game-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .game-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #4ecdc4;
+        }
+
+        .game-card p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .play-button {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(45deg, #ffd93d, #ffed4e);
+            color: #333;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .play-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255,217,61,0.4);
+        }
+
+        /* Categories */
+        .categories {
+            padding: 3rem 2rem;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .category-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-card:hover {
+            background: rgba(78,205,196,0.3);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0,0,0,0.8);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .game-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .game-card:nth-child(1) { animation-delay: 0.1s; }
+        .game-card:nth-child(2) { animation-delay: 0.2s; }
+        .game-card:nth-child(3) { animation-delay: 0.3s; }
+        .game-card:nth-child(4) { animation-delay: 0.4s; }
+        .game-card:nth-child(5) { animation-delay: 0.5s; }
+        .game-card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">🎮 Boys Gaming Zone</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#games">Games</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>🚀 Ultimate Gaming Zone</h1>
+            <p>Thousands of Action-Packed Games for Boys!</p>
+            <a href="#games" class="cta-button">Start Playing Now</a>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="games-section">
+        <h2 class="section-title">Featured Games</h2>
+        <div class="games-grid">
+            <div class="game-card">
+                <div class="game-icon">⚔️</div>
+                <h3>Battle Arena</h3>
+                <p>Intense multiplayer battles with epic weapons and skills!</p>
+                <button class="play-button" onclick="playGame('Battle Arena')">Play Now</button>
+            </div>
+            <div class="game-card">
+                <div class="game-icon">🚗</div>
+                <h3>Speed Racer</h3>
+                <p>High-speed racing with nitro boosts and crazy stunts!</p>
+                <button class="play-button" onclick="playGame('Speed Racer')">Play Now</button>
+            </div>
+            <div class="game-card">
+                <div class="game-icon">🦖</div>
+                <h3>Dino Hunter</h3>
+                <p>Hunt dinosaurs in a prehistoric world adventure!</p>
+                <button class="play-button" onclick="playGame('Dino Hunter')">Play Now</button>
+            </div>
+            <div class="game-card">
+                <div class="game-icon">🛸</div>
+                <h3>Space Invaders</h3>
+                <p>Defend Earth from alien invasions!</p>
+                <button class="play-button" onclick="playGame('Space Invaders')">Play Now</button>
+            </div>
+            <div class="game-card">
+                <div class="game-icon">🏍️</div>
+                <h3>Moto Xtreme</h3>
+                <p>Perform insane motorcycle stunts and tricks!</p>
+                <button class="play-button" onclick="playGame('Moto Xtreme')">Play Now</button>
+            </div>
+            <div class="game-card">
+                <div class="game-icon">⚽</div>
+                <h3>Super Penalty</h3>
+                <p>Score epic goals in intense penalty shootouts!</p>
+                <button class="play-button" onclick="playGame('Super Penalty')">Play Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="categories">
+        <h2 class="section-title" style="color: white;">Game Categories</h2>
+        <div class="category-grid">
+            <div class="category-card" onclick="filterGames('action')">
+                <div style="font-size: 3rem;">⚔️</div>
+                <h3>Action</h3>
+                <p>60+ Games</p>
+            </div>
+            <div class="category-card" onclick="filterGames('racing')">
+                <div style="font-size: 3rem;">🚗</div>
+                <h3>Racing</h3>
+                <p>45+ Games</p>
+            </div>
+            <div class="category-card" onclick="filterGames('sports')">
+                <div style="font-size: 3rem;">⚽</div>
+                <h3>Sports</h3>
+                <p>35+ Games</p>
+            </div>
+            <div class="category-card" onclick="filterGames('adventure')">
+                <div style="font-size: 3rem;">🗺️</div>
+                <h3>Adventure</h3>
+                <p>50+ Games</p>
+            </div>
+            <div class="category-card" onclick="filterGames('shooting')">
+                <div style="font-size: 3rem;">🔫</div>
+                <h3>Shooting</h3>
+                <p>40+ Games</p>
+            </div>
+            <div class="category-card" onclick="filterGames('arcade')">
+                <div style="font-size: 3rem;">🎮</div>
+                <h3>Arcade</h3>
+                <p>70+ Games</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Boys Gaming Zone. All rights reserved. | Play Safe & Have Fun!</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Play game function
+        function playGame(gameName) {
+            // Create a simple game modal or redirect to game page
+            alert(`🎮 Starting ${gameName}!\n\nThis is where you'd load the actual game.\n\nPro Tip: Use HTML5 Canvas or integrate with game engines like Phaser.js!`);
+            
+            // Example: Open a simple canvas game
+            showSimpleGame();
+        }
+
+        // Simple canvas game example
+        function showSimpleGame() {
+            const gameModal = document.createElement('div');
+            gameModal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.9);
+                z-index: 9999;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            `;
+            
+            gameModal.innerHTML = `
+                <div style="background: #1e3c72; padding: 2rem; border-radius: 20px; text-align: center; max-width: 500px;">
+                    <h2 style="color: #4ecdc4; margin-bottom: 1rem;">Quick Space Shooter Demo</h2>
+                    <canvas id="miniGame" width="400" height="300" style="border: 2px solid #4ecdc4; border-radius: 10px;"></canvas>
+                    <br><br>
+                    <button onclick="this.parentElement.parentElement.remove()" style="padding: 10px 20px; background: #ff6b6b; color: white; border: none; border-radius: 25px; cursor: pointer; font-size: 16px;">Close Game</button>
+                </div>
+            `;
+            
+            document.body.appendChild(gameModal);
+            
+            // Simple game logic
+            const canvas = document.getElementById('miniGame');
+            const ctx = canvas.getContext('2d');
+            
+            let player = { x: 180, y: 250, width: 40, height: 20 };
+            let bullets = [];
+            let enemies = [];
+            
+            function gameLoop() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Player
+                ctx.fillStyle = '#4ecdc4';
+                ctx.fillRect(player.x, player.y, player.width, player.height);
+                
+                // Simple enemy
+                if (Math.random() < 0.02) {
+                    enemies.push({ x: Math.random() * 360, y: 0, width: 30, height: 20 });
+                }
+                
+                enemies.forEach((enemy, i) => {
+                    enemy.y += 2;
+                    ctx.fillStyle = '#ff6b6b';
+                    ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+                    
+                    if (enemy.y > 300) enemies.splice(i, 1);
+                });
+                
+                requestAnimationFrame(gameLoop);
+            }
+            
+            canvas.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                player.x = e.clientX - rect.left - player.width/2;
+                if (player.x < 0) player.x = 0;
+                if (player.x > 360) player.x = 360;
+            });
+            
+            gameLoop();
+        }
+
+        // Filter games by category
+        function filterGames(category) {
+            alert(`🔍 Filtering games by: ${category.toUpperCase()}\n\nPro Tip: Add dynamic filtering with JavaScript!`);
+        }
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0,0,0,0.95)';
+            } else {
+                header.style.background = 'rgba(0,0,0,0.9)';
+            }
+        });
+    </script>
+</body>
+</html>
